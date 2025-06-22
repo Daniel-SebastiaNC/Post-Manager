@@ -17,6 +17,6 @@ spring:
       database-platform: org.hibernate.dialect.H2Dialect
       show-sql: true
 
-    flyway:
-      enabled: true
-      locations: classpath:db/migrations
+  flyway:
+    enabled: true
+    locations: classpath:db/migrations
