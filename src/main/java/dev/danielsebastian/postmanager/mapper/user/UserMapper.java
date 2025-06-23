@@ -1,4 +1,4 @@
-package dev.danielsebastian.postmanager.mapper;
+package dev.danielsebastian.postmanager.mapper.user;
 
 import dev.danielsebastian.postmanager.dto.user.UserDto;
 import dev.danielsebastian.postmanager.dto.user.UserRegisterRequest;

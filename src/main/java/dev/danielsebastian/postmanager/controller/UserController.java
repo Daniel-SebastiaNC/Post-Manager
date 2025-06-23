@@ -2,6 +2,7 @@ package dev.danielsebastian.postmanager.controller;
 
 import dev.danielsebastian.postmanager.dto.user.UserDto;
 import dev.danielsebastian.postmanager.dto.user.UserRegisterRequest;
+import dev.danielsebastian.postmanager.mapper.user.UserMapper;
 import dev.danielsebastian.postmanager.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,11 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @PostMapping("/register")
     public ResponseEntity<UserDto> register(@RequestBody UserRegisterRequest userRegisterRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
-            userService.registerUser(userRegisterRequest)
+                userMapper.toDto(
+                        userService.registerUser(userRegisterRequest)
+                )
         );
     }
 }

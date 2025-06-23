@@ -1,8 +1,7 @@
 package dev.danielsebastian.postmanager.service;
 
-import dev.danielsebastian.postmanager.dto.user.UserDto;
 import dev.danielsebastian.postmanager.dto.user.UserRegisterRequest;
-import dev.danielsebastian.postmanager.mapper.UserMapper;
+import dev.danielsebastian.postmanager.mapper.user.UserMapper;
 import dev.danielsebastian.postmanager.model.User;
 import dev.danielsebastian.postmanager.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,17 +14,12 @@ public class UserService {
 
     private final UserMapper userMapper;
 
-    public UserDto registerUser(UserRegisterRequest userRegisterRequest) {
+    public User registerUser(UserRegisterRequest userRegisterRequest) {
         User domain = userMapper.toDomain(userRegisterRequest);
-
         System.out.println(domain);
 
         if (userRegisterRequest.password().equals(userRegisterRequest.confirmPassword())) {
-            User save = userRepository.save(
-                    domain
-            );
-
-            return userMapper.toDto(save);
+            return userRepository.save(domain);
         }
 
         return null;
