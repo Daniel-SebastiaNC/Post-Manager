@@ -44,4 +44,9 @@ public class PostService {
 
         return postRepository.save(postFound);
     }
+
+    public void deletePost(Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new DataNotFoundException("Post not found"));
+        postRepository.delete(post);
+    }
 }
