@@ -31,4 +31,8 @@ public class PostService {
     public List<Post> getPostsByUserId(Long userId) {
         return postRepository.findByUserId(userId);
     }
+
+    public Post getPostById(Long postId) {
+        return postRepository.findById(postId).orElseThrow(() -> new DataNotFoundException("Post not found"));
+    }
 }
