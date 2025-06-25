@@ -40,4 +40,9 @@ public class PostController {
                 postService.getPostsByUserId(id).stream().map(postMapper::toResponse).toList()
         );
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PostResponse> getPostById(@PathVariable Long id) {
+        return ResponseEntity.ok(postMapper.toResponse(postService.getPostById(id)));
+    }
 }
