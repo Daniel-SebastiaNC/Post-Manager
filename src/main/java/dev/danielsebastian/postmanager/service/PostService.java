@@ -35,4 +35,13 @@ public class PostService {
     public Post getPostById(Long postId) {
         return postRepository.findById(postId).orElseThrow(() -> new DataNotFoundException("Post not found"));
     }
+
+    public Post updatePost(Long postId, PostRequest postRequest) {
+        Post postFound = postRepository.findById(postId).orElseThrow(() -> new DataNotFoundException("Post not found"));
+
+        postFound.setTitle(postRequest.title());
+        postFound.setContent(postRequest.content());
+
+        return postRepository.save(postFound);
+    }
 }
