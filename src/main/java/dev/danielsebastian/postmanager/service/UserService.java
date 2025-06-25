@@ -18,7 +18,6 @@ public class UserService {
 
     public User registerUser(UserRegisterRequest userRegisterRequest) {
         User domain = userMapper.toDomain(userRegisterRequest);
-        System.out.println(domain);
 
         if (userRegisterRequest.password().equals(userRegisterRequest.confirmPassword())) {
             return userRepository.save(domain);
