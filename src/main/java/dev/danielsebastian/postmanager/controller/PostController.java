@@ -33,4 +33,11 @@ public class PostController {
                 postService.getAllPosts().stream().map(postMapper::toResponse).toList()
         );
     }
+
+    @GetMapping("/all/{id}")
+    public ResponseEntity<List<PostResponse>> getAllPostsByUser(@PathVariable Long id) {
+        return ResponseEntity.ok(
+                postService.getPostsByUserId(id).stream().map(postMapper::toResponse).toList()
+        );
+    }
 }
