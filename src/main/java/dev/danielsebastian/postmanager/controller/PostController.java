@@ -45,4 +45,9 @@ public class PostController {
     public ResponseEntity<PostResponse> getPostById(@PathVariable Long id) {
         return ResponseEntity.ok(postMapper.toResponse(postService.getPostById(id)));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PostResponse> updatePost(@PathVariable Long id, @RequestBody PostRequest postRequest) {
+        return ResponseEntity.ok(postMapper.toResponse(postService.updatePost(id, postRequest)));
+    }
 }
