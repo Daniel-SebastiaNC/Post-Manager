@@ -27,4 +27,8 @@ public class PostService {
         Post domain = postMapper.toDomain(postRequest, userFound);
         return postRepository.save(domain);
     }
+
+    public List<Post> getPostsByUserId(Long userId) {
+        return postRepository.findByUserId(userId);
+    }
 }
