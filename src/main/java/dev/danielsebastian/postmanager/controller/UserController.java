@@ -1,6 +1,8 @@
 package dev.danielsebastian.postmanager.controller;
 
+import dev.danielsebastian.postmanager.dto.user.LoginResponse;
 import dev.danielsebastian.postmanager.dto.user.UserDto;
+import dev.danielsebastian.postmanager.dto.user.UserLoginRequest;
 import dev.danielsebastian.postmanager.dto.user.UserRegisterRequest;
 import dev.danielsebastian.postmanager.mapper.user.UserMapper;
 import dev.danielsebastian.postmanager.service.UserService;
@@ -27,5 +29,10 @@ public class UserController {
                         userService.registerUser(userRegisterRequest)
                 )
         );
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody UserLoginRequest userLoginRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.loginUser(userLoginRequest));
     }
 }
