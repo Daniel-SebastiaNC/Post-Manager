@@ -20,3 +20,7 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migrations
+
+post-manager:
+  security:
+    secret: ${SECRET}
