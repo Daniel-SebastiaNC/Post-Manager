@@ -21,8 +21,8 @@ public class ControllerExceptionHandler {
     }
 
     @ExceptionHandler(UsernameOrPasswordInvalidException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, Object> handleUsernameNotFoundException(UsernameOrPasswordInvalidException e) {
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public Map<String, Object> handleUsernameOrPasswordInvalidException(UsernameOrPasswordInvalidException e) {
         Map<String, Object> response = new HashMap<>();
         response.put("message: ", e.getMessage());
         response.put("error: ", "Login failed");
