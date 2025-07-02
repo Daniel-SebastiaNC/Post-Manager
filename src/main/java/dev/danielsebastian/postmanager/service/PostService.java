@@ -1,12 +1,14 @@
 package dev.danielsebastian.postmanager.service;
 
 import dev.danielsebastian.postmanager.dto.post.PostRequest;
+import dev.danielsebastian.postmanager.dto.user.JWTUserData;
 import dev.danielsebastian.postmanager.exception.DataNotFoundException;
 import dev.danielsebastian.postmanager.mapper.post.PostMapper;
 import dev.danielsebastian.postmanager.model.Post;
 import dev.danielsebastian.postmanager.model.User;
 import dev.danielsebastian.postmanager.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +25,7 @@ public class PostService {
     }
 
     public Post createPost(PostRequest postRequest) {
-        User userFound = userService.getUserById(postRequest.userId()).orElseThrow(() -> new DataNotFoundException("User not found"));
+        User userFound = this.getUserByAuth();
         Post domain = postMapper.toDomain(postRequest, userFound);
         return postRepository.save(domain);
     }
@@ -48,5 +50,10 @@ public class PostService {
     public void deletePost(Long postId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new DataNotFoundException("Post not found"));
         postRepository.delete(post);
+    }
+
+    private User getUserByAuth() {
+        JWTUserData jwtUserData = (JWTUserData) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userService.getUserById(jwtUserData.id()).orElseThrow(() -> new DataNotFoundException("User not found"));
     }
 }
